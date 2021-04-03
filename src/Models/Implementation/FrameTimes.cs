@@ -19,6 +19,7 @@
 
 using System;
 
+using System.Collections;
 using System.Collections.Generic;
 
 using OpenFrafsuallyLib.Calculators.Implementation;
@@ -34,6 +35,8 @@ namespace OpenFrafsuallyLib.Models.Implementation
     {
         public List<FrameTime> FrameTimesList { get; set; }
 
+        protected Dictionary<double, FrameTime> SortedFrameTimes;
+
         protected FrameTimeCalculator _frameTimeCalculator;
         
         
@@ -48,6 +51,11 @@ namespace OpenFrafsuallyLib.Models.Implementation
         /// 0.1% Lows Frame rates
         /// </summary>
         public double ZeroPointOnePercentLowsFps => CalculatePercentileFps(0.1);
+
+        public double MaximumFps => _frameTimeCalculator.CalculateFramesPerSecond(NumberOfFrames, SortedFrameTimes[NumberOfFrames].FrameTimeMilliseconds / 1000);
+
+        public double MinimumFps => _frameTimeCalculator.CalculateFramesPerSecond(0, SortedFrameTimes[NumberOfFrames].FrameTimeMilliseconds / 1000);
+
 
         /// <summary>
         /// 25% Percentile Frame rates
@@ -69,6 +77,8 @@ namespace OpenFrafsuallyLib.Models.Implementation
             FrameTimesList = new List<FrameTime>();
             
             _frameTimeCalculator = new FrameTimeCalculator();
+
+            SortedFrameTimes = new Dictionary<double, FrameTime>();
         }
 
         public FrameTimes(FrameTime[] frameTimesArray)
@@ -86,6 +96,8 @@ namespace OpenFrafsuallyLib.Models.Implementation
             {
                FrameTimesList.Add(frameTime);
             }
+
+            SortFrameTimeList();
         }
         
         /// <summary>
@@ -104,6 +116,8 @@ namespace OpenFrafsuallyLib.Models.Implementation
             {
                 this.FrameTimesList.Remove(frameTimesArray[index]);
             }
+
+            SortFrameTimeList();
         }
         
         /// <summary>
@@ -192,11 +206,45 @@ namespace OpenFrafsuallyLib.Models.Implementation
                 throw new Exception("Error: Inappropriate percentage value (less than 0%) provided as parameter.");
             }
 
-            Array.Sort(FrameTimesList.ToArray());
+            SortFrameTimeList();
             
             //No rounding necessary cos Int32.
             //percentileIndex = Math.Round(percentileIndex, 0, MidpointRounding.ToEven);
-            return FrameTimesList[Convert.ToInt32(percentage / 100) * FrameTimesList.ToArray().Length];
+            return SortedFrameTimes[Convert.ToInt32(percentage / 100) * FrameTimesList.ToArray().Length];
+        }
+
+        protected void SortFrameTimeList()
+        {
+            SortedFrameTimes.Clear();
+
+            List<FrameTime> SortedFrameTimesList = new List<FrameTime>();
+
+            double previousFrameTimeMilliseconds = 0.0;
+
+            int index = 0;
+
+            foreach(FrameTime frametime in FrameTimesList)
+            {
+                if(frametime.FrameTimeMilliseconds < previousFrameTimeMilliseconds)
+                {
+                    SortedFrameTimesList.Insert(index, frametime);
+                }
+                else if(frametime.FrameTimeMilliseconds == previousFrameTimeMilliseconds)
+                {
+                    SortedFrameTimesList.Insert(index + 1, frametime);
+                }
+                else if(frametime.FrameTimeMilliseconds > previousFrameTimeMilliseconds)
+                {
+                    SortedFrameTimesList.Insert(index + 1, frametime);
+                }
+
+                index++;
+            }
+
+            for(int sortIndex = 0; sortIndex < SortedFrameTimesList.Count; sortIndex++)
+            {
+                SortedFrameTimes.Add(sortIndex, SortedFrameTimesList[sortIndex]);
+            }
         }
     }
 }
