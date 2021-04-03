@@ -140,7 +140,7 @@ namespace OpenFrafsuallyLib.Models.Implementation
 
             foreach(FrameTime frameTime in FrameTimesList)
             {
-                var seconds = frameTime.TimeMilliseconds / 1000.0;
+                var seconds = frameTime.frame.TimeMilliseconds / 1000.0;
 
                 average *= _frameTimeCalculator.CalculateFramesPerSecond(1, seconds);
             }
@@ -158,7 +158,7 @@ namespace OpenFrafsuallyLib.Models.Implementation
             
             foreach (FrameTime frameTime in FrameTimesList)
             {
-                var seconds = frameTime.TimeMilliseconds / 1000.0;
+                var seconds = frameTime.frame.TimeMilliseconds / 1000.0;
 
                 average += _frameTimeCalculator.CalculateFramesPerSecond(1, seconds);
             }
