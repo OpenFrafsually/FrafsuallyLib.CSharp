@@ -13,12 +13,12 @@
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/OpenFrafsually/FrafsuallyLib.CSharp</RepositoryUrl>
         <PackageReleaseNotes>### Changes
-* API changes from removal of ``AverageFrameTime`` and moving to new ``FrameTimes`` class
-* Moved individual Frame info to a new ``Frame`` class which each ``FrameTime`` class holds one of.
-* Minor fixes</PackageReleaseNotes>
+* Removed Obsoletion warning on FrameTimeMilliseconds
+* Fixed issues with calculating percentile Frames Per Second.
+</PackageReleaseNotes>
         <Description>A library to perform calculations related to Frametimes and framerates and FrameTime and AverageFrameRate models.</Description>
         <PackageVersion>1.2.0</PackageVersion>
-        <Version>1.2.0</Version>
+        <Version>1.3.0</Version>
         <TargetFrameworks>net5.0;netcoreapp3.1</TargetFrameworks>
     </PropertyGroup>
 
