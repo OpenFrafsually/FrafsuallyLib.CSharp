@@ -18,17 +18,17 @@
  */
 
 using OpenFrafsuallyLib.Models.Definition;
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenFrafsuallyLib.Models
 {
     public class Frame : IFrame
     {
-
+        public Frame()
+        {
+            
+        }
 
         /// <summary>
         /// 
@@ -50,8 +50,8 @@ namespace OpenFrafsuallyLib.Models
         /// </summary>
         public double TotalNumberOfPixelsRendered => Convert.ToDouble(VerticalResolutionPixels * HorizontalResolutionPixels);
 
-        long IFrame.FrameNumber { get; set; }
-        double IFrame.StartTimeMilliseconds { get; set; }
-        double IFrame.EndTimeMilliseconds { get; set; }
+        public long FrameNumber { get; set; }
+        public double StartTimeMilliseconds { get; set; }
+        public double EndTimeMilliseconds { get; set; }
     }
 }

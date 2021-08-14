@@ -18,6 +18,7 @@
  */
 
 using System;
+
 using OpenFrafsuallyLib.Calculators.Definition;
 
 namespace OpenFrafsuallyLib.Calculators.Implementation
@@ -32,7 +33,7 @@ namespace OpenFrafsuallyLib.Calculators.Implementation
         /// </summary>
         /// <param name="fps"></param>
         /// <returns></returns>
-        double IFrameTimeCalculator.CalculateSecondsPerFrame(double fps) => (1.0 / fps);
+       public double CalculateSecondsPerFrame(double fps) => (1.0 / fps);
 
         /// <summary>
         /// 
@@ -40,7 +41,7 @@ namespace OpenFrafsuallyLib.Calculators.Implementation
         /// <param name="frames"></param>
         /// <param name="seconds"></param>
         /// <returns></returns>
-        double IFrameTimeCalculator.CalculateSecondsPerFrame(long frames, double seconds) => (seconds / Convert.ToDouble(frames));
+        public double CalculateSecondsPerFrame(long frames, double seconds) => (seconds / Convert.ToDouble(frames));
 
         /// <summary>
         /// 
@@ -48,7 +49,7 @@ namespace OpenFrafsuallyLib.Calculators.Implementation
         /// <param name="frames"></param>
         /// <param name="seconds"></param>
         /// <returns></returns>
-        double IFrameTimeCalculator.CalculateFramesPerSecond(long frames, double seconds) => (Convert.ToDouble(frames) / seconds);
+        public double CalculateFramesPerSecond(long frames, double seconds) => (Convert.ToDouble(frames) / seconds);
 
         /// <summary>
         /// 
@@ -56,13 +57,13 @@ namespace OpenFrafsuallyLib.Calculators.Implementation
         /// <param name="frametimes"></param>
         /// <param name="seconds"></param>
         /// <returns></returns>
-        double IFrameTimeCalculator.CalculateFramesPerSecondWithFrameTimes(double frametimes, double seconds) => ((seconds * 1000.0) / frametimes);
+        public double CalculateFramesPerSecondWithFrameTimes(double frametimes, double seconds) => ((seconds * 1000.0) / frametimes);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="fps"></param>
         /// <returns></returns>
-        double IFrameTimeCalculator.CalculateFrameTimesMilliseconds(double fps) => (1000.0 / fps);
+        public double CalculateFrameTimesMilliseconds(double fps) => (1000.0 / fps);
     }
 }

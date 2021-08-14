@@ -20,7 +20,6 @@
 using System;
 
 using OpenFrafsuallyLib.Calculators.Implementation;
-
 using OpenFrafsuallyLib.Models.Definition;
 
 namespace OpenFrafsuallyLib.Models
@@ -35,7 +34,7 @@ namespace OpenFrafsuallyLib.Models
         /// <summary>
         /// 
         /// </summary>
-        Frame IFrameTime.frame { get; set; }
+        public Frame frame { get; set; }
 
         public FrameTime()
         {
@@ -47,7 +46,7 @@ namespace OpenFrafsuallyLib.Models
         /// <summary>
         /// 
         /// </summary>
-        double IFrameTime.FrameTimeMilliseconds =>
+       public double FrameTimeMilliseconds =>
            ((Calculators.Definition.IFrameTimeCalculator)_frameTimeCalculator).CalculateFrameTimesMilliseconds(((Calculators.Definition.IFrameTimeCalculator)_frameTimeCalculator).CalculateFramesPerSecond(1,
                Convert.ToDouble(((IFrameTime)this).frame.TimeMilliseconds / 1000.0)));
        

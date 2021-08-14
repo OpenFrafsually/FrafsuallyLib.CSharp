@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2020 AluminiumTech
+    Copyright (C) 2020-2021 AluminiumTech
 
     This library is free software; you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public
@@ -33,14 +33,14 @@ namespace OpenFrafsuallyLib.Models.Implementation
     /// </summary>
     public class FrameTimes : IFrameTimes
     {
-         List<FrameTime> IFrameTimes.FrameTimesList { get; set; }
+         List<FrameTime> FrameTimesList { get; set; }
 
         protected Dictionary<double, FrameTime> SortedFrameTimes;
 
         protected FrameTimeCalculator _frameTimeCalculator;
         
         
-         int IFrameTimes.NumberOfFrames => FrameTimesList.Count;
+         public int NumberOfFrames => FrameTimesList.Count;
 
         /// <summary>
         /// 1.0% Lows Frame rates
